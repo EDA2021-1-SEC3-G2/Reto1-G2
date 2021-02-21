@@ -47,15 +47,18 @@ def loadinformation():
     Carga la info"""
     return controller.loadinformation("videosall.csv")
 
+
 def GoodVideosByCategoryAndConuntry():
     """
     busca videos por categoria y país"""
     return controller.GoodVideosByCategoryAndConuntry("videosall.csv")
 
+
 def FindTrendVideoByCountry():
     """
     busca video tendencia por país"""
     return controller.FindTrendVideoByCountry("videosall.csv")
+
 
 def MostLikedVideos():
     """
