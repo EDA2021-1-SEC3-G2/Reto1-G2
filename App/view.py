@@ -107,7 +107,7 @@ while True:
         number = input("cantidad de videos por listar: ")
         size = input("Indique tamaño de la muestra que desee: ")
         alg = int(input("Indique el tipo de algoritmo que desse utilizar (1->shellshort; 2->selectionsort; 3->insertionsort): "))
-        result = controller.sortBooks(catalog, int(size), alg)
+        result = controller.sortVideos(catalog, int(size), alg)
         compilation = controller.getVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
         GoodVideosByCategoryAndConuntry(compilation)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",

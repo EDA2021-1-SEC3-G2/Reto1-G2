@@ -46,14 +46,14 @@ def loadData(catalog):
 
 
 def loadVideos(catalog):
-    videosfile = cf.data_dir + 'Data/videos-small.csv'
+    videosfile = cf.data_dir + 'videos-small.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
 
 
 def loadCategoryID(catalog):
-    categoryfile = cf.data_dir + 'Data/category-id.csv'
+    categoryfile = cf.data_dir + 'category-id.csv'
     input_file = csv.DictReader(open(categoryfile, encoding='utf-8'))
     for categ in input_file:
         model.addCategoryID(catalog, categ)

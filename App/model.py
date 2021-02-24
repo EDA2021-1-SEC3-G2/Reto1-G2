@@ -121,10 +121,11 @@ def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
     templist = lt.newList()
     cat_id = getCategory_ID(catalog, category_name)
     cont = 0
-    while cont < len(videos) and numvid > 0:
-        if videos[cont]['country'] == country and videos[cont]['category_id'] == cat_id:
+    temp = numvid
+    while cont < len(videos) and temp > 0:
+        if videos[cont]['country'].lower() == country.lower() and videos[cont]['category_id'] == cat_id:
             lt.addLast(templist, videos[cont])
-            numvid -= 0
+            temp -= 0
         cont += 1
     mostviewedbycountandcat = getFinalList(templist)
     return mostviewedbycountandcat
