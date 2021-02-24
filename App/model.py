@@ -39,16 +39,28 @@ los mismos.
 # Construccion de modelos
 
 
-def newCatalog():
+def newCatalog(tipo,cantidad):
     catalog = {'videos': None,
                'category': None,
                'country': None}
     catalog['videos'] = lt.newList()
-    catalog['category'] = lt.newList('SINGLE_LINKED',
+    x=""
+    if tipo == "1":
+        x="SINGLE_LINKED"
+    elif tipo == "2":
+        x="ARRAY_LIST"
+    else:
+        print("Eleccion inválida")
+    catalog['category'] = lt.newList(x,
                                      cmpfunction=comparecategories)
-    catalog['country'] = lt.newList('SINGLE_LINKED',
+    catalog['country'] = lt.newList(x,
                                     cmpfunction=comparecountries)
+    
     return catalog
+
+def list_user(cantidad):
+    
+
 
 # Funciones para agregar informacion al catalogo
 

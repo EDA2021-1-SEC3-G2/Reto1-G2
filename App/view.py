@@ -44,9 +44,9 @@ def printMenu():
     print("5- Video con más likes")
 
 
-def initCatalog(election_type):#intento pasar la info tomada del imput en el menú.
+def initCatalog(tipo):#intento pasar la info tomada del imput en el menú.
     """inicializa el catalogo de videos"""
-    return controller.initCatalog()
+    return controller.initCatalog(tipo)
 
 def loadData(catalog):
     """
@@ -99,8 +99,8 @@ while True:
         print("1-LINKED_LIST")
         print("2-ARRAY_LIST")
         tipo=input("Su eleccion es... ")
-        election_type=controller.initCatalog(tipo)
-        initCatalog(election_type)
+        cantidad=input("Ingrese la cantidad de archivos que desea cargar: ")
+        initCatalog(tipo,cantidad)
 
     elif int(inputs[0]) == 2:
         country=input("Ingrese el país: ")
