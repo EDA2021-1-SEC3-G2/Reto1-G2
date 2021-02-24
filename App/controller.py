@@ -71,3 +71,6 @@ def sortVideos(catalog):
 
 def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
     return model.getVideosByCategoryAndCountry(category_name, country, numvid)
+
+def FindTrendVideoByCountry(catalog,country)#COMPLETAR!!
+    return model.

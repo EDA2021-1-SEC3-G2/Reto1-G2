@@ -44,34 +44,44 @@ def printMenu():
     print("5- Video con más likes")
 
 
-def loadinformation():
+def initCatalog():
+    """inicializa el catalogo de videos"""
+    return controller.initCatalog()
+
+def loadData(catalog):
     """
-    Carga la info"""
-    return controller.loadinformation("videosall.csv")
+    carga los videos en la estructura de datos
+    """
+    controller.loadData(catalog)
 
 
 def GoodVideosByCategoryAndConuntry(compilation):
     """
     busca videos por categoria y país"""
-    for video in lt.iterator:
-        print("trending_date: "+ lista*["trending_date"]+"title"+lista*[title]+"channel_title"+lista*[channel_title]+
-        )
-    return controller.GoodVideosByCategoryAndConuntry("videosall.csv")
+    size=lt.size(compilation)
+    if size:
+        for video in lt.iterator:
+            print("trending_date: "+ compilation["trending_date"]+"title"+compilation["title"]+"channel_title"+compilation["channel_title"]+
+             )
+    else:
+        print("No se encontraron videos")
 
 
 def FindTrendVideoByCountry(mosttrend):
     """
     busca video tendencia por país"""
-    return controller.FindTrendVideoByCountry("videosall.csv")
+
+
 
 def TrendByCategory(mosttrend):
     "video tendecia por categoría"
-    return controller.TrendByCategory("videosall.csv")
+    
 
 def MostLikedVideos(mostliked):
     """
     videos con mas likes"""
-    return controller.MostLikedVideos("videosall.csv")
+    
+
 
 
 
@@ -86,12 +96,15 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        print("1-LINKED_LIST")
+        print("2-ARRAY_LIST")
+        input("Su eleccion es... ")
 
     elif int(inputs[0]) == 2:
         country=input("Ingrese el país: ")
         category=input("Ingrese la categoria: ")
         number=input("cantidad de videos por listar: ")
-        compilation= controller.GoodVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
+        compilation= controller.getVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
         GoodVideosByCategoryAndConuntry(compilation)
 
     elif int(inputs[0])==3:
