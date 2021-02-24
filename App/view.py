@@ -49,22 +49,25 @@ def loadinformation():
     return controller.loadinformation("videosall.csv")
 
 
-def GoodVideosByCategoryAndConuntry(category, country, number):
+def GoodVideosByCategoryAndConuntry(compilation):
     """
     busca videos por categoria y país"""
+    for video in lt.iterator:
+        print("trending_date: "+ lista*["trending_date"]+"title"+lista*[title]+"channel_title"+lista*[channel_title]+
+        )
     return controller.GoodVideosByCategoryAndConuntry("videosall.csv")
 
 
-def FindTrendVideoByCountry(country):
+def FindTrendVideoByCountry(mosttrend):
     """
     busca video tendencia por país"""
     return controller.FindTrendVideoByCountry("videosall.csv")
 
-def TrendByCategory(category):
+def TrendByCategory(mosttrend):
     "video tendecia por categoría"
     return controller.TrendByCategory("videosall.csv")
 
-def MostLikedVideos():
+def MostLikedVideos(mostliked):
     """
     videos con mas likes"""
     return controller.MostLikedVideos("videosall.csv")
@@ -87,18 +90,23 @@ while True:
         category=input("Ingrese la categoria: ")
         number=input("cantidad de videos por listar: ")
         compilation= controller.GoodVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
-        print(compilation)
+        GoodVideosByCategoryAndConuntry(compilation)
 
     elif int(inputs[0])==3:
         country=input("Ingrese el país: ")
         mosttrend=controller.FindTrendVideoByCountry(catalog, country)
+        FindTrendVideoByCountry(mosttrend)
+
 
     elif int(imputs[0])==4:
         category=input("Ingrese la categoria: ")
         mosttrend=controller.TrendByCategory(catalog, category)
+        TrendByCategory(mosttrend)
+
 
     elif int(input[0])==5:
         mostliked=controller.MostLikedVideos(catalog)
+        MostLikedVideos(mostliked)
         
 
     else:
