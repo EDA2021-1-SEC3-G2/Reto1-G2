@@ -173,9 +173,9 @@ def sortVideos(catalog, size, alg):
     elif alg == 3:
         sorted_list = ins.sort(sub_list, cmpVideosByViews)
     elif alg == 4:
-        merg.sort(sub_list, cmpVideosByViews)
+        sorted_list = merg.sort(sub_list, cmpVideosByViews)
     else:
-        quick.sort(sub_list, cmpVideosByViews)
+        sorted_list = quick.sort(sub_list, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sorted_list
