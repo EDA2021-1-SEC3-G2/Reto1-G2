@@ -42,19 +42,27 @@ los mismos.
 # Construccion de modelos
 
 
-def newCatalog(tipe):
+def newLinkedCatalog():
     catalog = {'videos': None,
                'category': None,
                'country': None}
     catalog['videos'] = lt.newList()
-    x = ""
-    if tipe == "1":
-        x = 'SINGLE_LINKED'
-    else:
-        x = 'ARRAY_LIST'
-    catalog['category'] = lt.newList(x,
+    catalog['category'] = lt.newList('LINKED_LIST',
                                      cmpfunction=comparecategories)
-    catalog['country'] = lt.newList(x,
+    catalog['country'] = lt.newList('LINKED_LIST',
+                                    cmpfunction=comparecountries)
+
+    return catalog
+
+
+def newArrayCatalog():
+    catalog = {'videos': None,
+               'category': None,
+               'country': None}
+    catalog['videos'] = lt.newList()
+    catalog['category'] = lt.newList('ARRAY_LIST',
+                                     cmpfunction=comparecategories)
+    catalog['country'] = lt.newList('ARRAY_LIST',
                                     cmpfunction=comparecountries)
 
     return catalog

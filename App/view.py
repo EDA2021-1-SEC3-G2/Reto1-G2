@@ -44,10 +44,14 @@ def printMenu():
     print("5- Video con más likes")
 
 
-def initCatalog(tipe):
+def initLinkedCatalog():
     # intento pasar la info tomada del imput en el menú.
     """inicializa el catalogo de videos"""
-    return controller.initCatalog(tipe)
+    return controller.initLinkedCatalog()
+
+
+def initArrayCatalog():
+    return controller.initArrayCatalog()
 
 
 def loadData(catalog):
@@ -98,15 +102,23 @@ while True:
         print("Cargando información de los archivos ....")
         print("1-LINKED_LIST")
         print("2-ARRAY_LIST")
-        tipe = input("Su eleccion es... ")
-        initCatalog(tipe)
+        tipe = int(input("Su eleccion es... "))
+        if tipe == 1:
+            catalog = initLinkedCatalog()
+        else:
+            catalog = initArrayCatalog()
+        loadData(catalog)
 
     elif int(inputs[0]) == 2:
         country = input("Ingrese el país: ")
         category = input("Ingrese la categoria: ")
         number = input("cantidad de videos por listar: ")
         size = input("Indique tamaño de la muestra que desee: ")
-        alg = int(input("Indique el tipo de algoritmo que desse utilizar (1->shellshort; 2->selectionsort; 3->insertionsort): "))
+        print("Indique el tipo de algoritmo que desse utilizar")
+        print("1 - shellshort")
+        print("2 - selectionsort")
+        print("3 - insertionsort")
+        alg = int(input("Su selección es..."))
         result = controller.sortVideos(catalog, int(size), alg)
         compilation = controller.getVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
         GoodVideosByCategoryAndConuntry(compilation)
