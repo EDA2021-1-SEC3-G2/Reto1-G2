@@ -118,6 +118,8 @@ while True:
         print("1 - shellshort")
         print("2 - selectionsort")
         print("3 - insertionsort")
+        print("4 - mergesort")
+        print("5 - quicksort")
         alg = int(input("Su selección es..."))
         result = controller.sortVideos(catalog, int(size), alg)
         compilation = controller.getVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
