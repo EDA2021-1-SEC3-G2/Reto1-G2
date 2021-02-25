@@ -45,7 +45,6 @@ def initArrayCatalog():
 def loadData(catalog):
     loadVideos(catalog)
     loadCategoryID(catalog)
-    sortVideos(catalog)
 
 
 def loadVideos(catalog):
@@ -57,7 +56,7 @@ def loadVideos(catalog):
 
 def loadCategoryID(catalog):
     categoryfile = cf.data_dir + 'category-id.csv'
-    input_file = csv.DictReader(open(categoryfile, encoding='utf-8'))
+    input_file = csv.DictReader(open(categoryfile, encoding='utf-8'), delimiter='\t')
     print(input_file)
     for categ in input_file:
         model.addCategory(catalog, categ)
@@ -68,7 +67,7 @@ def loadCategoryID(catalog):
 
 
 def sortVideos(catalog, size, alg):
-    model.sortVideos(catalog, size, alg)
+    return model.sortVideos(catalog, size, alg)
 
 # Funciones de consulta sobre el catálogo
 

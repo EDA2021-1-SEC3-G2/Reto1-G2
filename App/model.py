@@ -46,27 +46,20 @@ los mismos.
 
 def newLinkedCatalog():
     catalog = {'videos': None,
-               'category': None,
-               'country': None}
+               'category': None}
     catalog['videos'] = lt.newList()
     catalog['category'] = lt.newList('LINKED_LIST',
                                      cmpfunction=comparecategories)
-    catalog['country'] = lt.newList('LINKED_LIST',
-                                    cmpfunction=comparecountries)
 
     return catalog
 
 
 def newArrayCatalog():
     catalog = {'videos': None,
-               'category': None,
-               'country': None}
+               'category': None}
     catalog['videos'] = lt.newList()
     catalog['category'] = lt.newList('ARRAY_LIST',
                                      cmpfunction=comparecategories)
-    catalog['country'] = lt.newList('ARRAY_LIST',
-                                    cmpfunction=comparecountries)
-
     return catalog
 
 
@@ -86,20 +79,11 @@ def addCategory(catalog, category):
     lt.addLast(catalog['category'], c)
 
 
-def addCountry(catalog, country):
-    c = newCountry(country['name'])
-    lt.addLast(catalog['country'], c)
-
-
 # Funciones para creacion de datos
 def newCategory(name, id):
     category = {'id': id, 'name': name}
     return category
 
-
-def newCountry(name):
-    coutry = {'name': name}
-    return coutry
 
 # Funciones de consulta
 
@@ -155,9 +139,6 @@ def comparecategories(name, category):
 def cmpVideosByViews(video1, video2):
     return(float(video1['views']) > float(video2['views']))
 
-
-def comparecountries(name, country):
-    return (name == country['name'])
 
 # Funciones de ordenamiento
 

@@ -38,10 +38,11 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Buenos videos por categoría y país")
-    print("3- Encontrar video tendencia por país")
-    print("4- Buscar video tendencia por categoria")
-    print("5- Video con más likes")
+    print("2- Seleccionar el tipo de algoritmo que desee utilizar para ordenar la lista")
+    print("3- Buenos videos por categoría y país")
+    print("4- Encontrar video tendencia por país")
+    print("5- Buscar video tendencia por categoria")
+    print("6- Video con más likes")
 
 
 def initLinkedCatalog():
@@ -67,7 +68,7 @@ def GoodVideosByCategoryAndConuntry(compilation):
     size = lt.size(compilation)
     if size:
         for video in lt.iterator:
-            print("trending_date: " + compilation["trending_date"]+"title" + compilation["title"]+"channel_title" + compilation["channel_title"])
+            print("Día que fue trending: " + compilation["trending_date"] + "Nombre del video: " + compilation["title"]+"Canal: " + compilation["channel_title"])
     else:
         print("No se encontraron videos")
 
@@ -89,7 +90,7 @@ def MostLikedVideos(mostliked):
     """
 
 
-catalog = None
+catalog = {}
 
 
 """
@@ -108,12 +109,10 @@ while True:
         else:
             catalog = initArrayCatalog()
         loadData(catalog)
+        print("Categorias cargadas: " + str(lt.size(catalog['category'])))
+        print("Videos cargados: " + str(lt.size(catalog['videos'])))
 
     elif int(inputs[0]) == 2:
-        country = input("Ingrese el país: ")
-        category = input("Ingrese la categoria: ")
-        number = input("cantidad de videos por listar: ")
-        size = input("Indique tamaño de la muestra que desee: ")
         print("Indique el tipo de algoritmo que desse utilizar")
         print("1 - shellshort")
         print("2 - selectionsort")
@@ -121,23 +120,29 @@ while True:
         print("4 - mergesort")
         print("5 - quicksort")
         alg = int(input("Su selección es..."))
+        size = input("Indique tamaño de la muestra que desee: ")
         result = controller.sortVideos(catalog, int(size), alg)
-        compilation = controller.getVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
-        GoodVideosByCategoryAndConuntry(compilation)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
                                           str(result[0]))
 
     elif int(inputs[0]) == 3:
         country = input("Ingrese el país: ")
+        category = input("Ingrese la categoria: ")
+        number = input("cantidad de videos por listar: ")
+        compilation = controller.getVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
+        GoodVideosByCategoryAndConuntry(compilation)
+
+    elif int(inputs[0]) == 4:
+        country = input("Ingrese el país: ")
         mosttrend = controller.FindTrendVideoByCountry(catalog, country)
         FindTrendVideoByCountry(mosttrend)
 
-    elif int(inputs[0]) == 4:
+    elif int(input[0]) == 5:
         category = input("Ingrese la categoria: ")
         mosttrend = controller.TrendByCategory(catalog, category)
         TrendByCategory(mosttrend)
 
-    elif int(input[0]) == 5:
+    elif int(inputs[0]) == 6:
         mostliked = controller.MostLikedVideos(catalog)
         MostLikedVideos(mostliked)
 
