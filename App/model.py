@@ -133,7 +133,8 @@ def FindTrendVideoByCountry(catalog, country):
 
 
 def comparecategories(name, category):
-    return (name == category['name'])
+    return (name == category['name'])       
+    
 
 
 def cmpVideosByViews(video1, video2):
