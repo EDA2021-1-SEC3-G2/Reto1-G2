@@ -37,12 +37,10 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- Seleccionar el tipo de algoritmo que desee utilizar para ordenar la lista")
-    print("3- Buenos videos por categoría y país")
-    print("4- Encontrar video tendencia por país")
-    print("5- Buscar video tendencia por categoria")
-    print("6- Video con más likes")
+    print("1- Buenos videos por categoría y país")
+    print("2- Encontrar video tendencia por país")
+    print("3- Buscar video tendencia por categoria")
+    print("4- Video con más likes")
 
 
 def initLinkedCatalog():
@@ -100,19 +98,16 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
-        print("1-LINKED_LIST")
-        print("2-ARRAY_LIST")
-        tipe = int(input("Su eleccion es... "))
-        if tipe == 1:
-            catalog = initLinkedCatalog()
-        else:
-            catalog = initArrayCatalog()
+        catalog=initLinkedCatalog()
         loadData(catalog)
         print("Categorias cargadas: " + str(lt.size(catalog['category'])))
         print("Videos cargados: " + str(lt.size(catalog['videos'])))
         #title, cannel_title, trending_date, country, views, likes, dislikes
-        print(catalog["category"])
+        print("CATEGORIAS",end="\n\n")
+        print(catalog["category"],end="\n\n")
+        print("PRIMER VIDEO:",end="\n\n")
+        print(catalog["videos"]["first"]["info"]["title"]+catalog["videos"]["first"]["info"]["channel_title"]+catalog["videos"]["first"]["info"]["trending_date"]+
+        catalog["videos"]["first"]["info"]["country"]+catalog["videos"]["first"]["info"]["views"]+catalog["videos"]["first"]["info"]["likes"]+catalog["videos"]["first"]["info"]["dislikes"])
     elif int(inputs[0]) == 2:
         print("Indique el tipo de algoritmo que desse utilizar")
         print("1 - shellshort")
@@ -125,6 +120,7 @@ while True:
         result = controller.sortVideos(catalog, int(size), alg)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
                                           str(result[0]))
+        #print(result)
 
     elif int(inputs[0]) == 3:
         country = input("Ingrese el país: ")
