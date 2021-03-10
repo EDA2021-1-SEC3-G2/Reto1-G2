@@ -107,39 +107,28 @@ while True:
         print(catalog["category"], end="\n\n")
         print("PRIMER VIDEO:", end="\n\n")
         print(catalog["videos"]["first"]["info"]["title"]+catalog["videos"]["first"]["info"]["channel_title"]+catalog["videos"]["first"]["info"]["trending_date"]+catalog["videos"]["first"]["info"]["country"]+catalog["videos"]["first"]["info"]["views"]+catalog["videos"]["first"]["info"]["likes"]+catalog["videos"]["first"]["info"]["dislikes"])
-    elif int(inputs[0]) == 2:
-        print("Indique el tipo de algoritmo que desse utilizar")
-        print("1 - shellshort")
-        print("2 - selectionsort")
-        print("3 - insertionsort")
-        print("4 - mergesort")
-        print("5 - quicksort")
-        alg = int(input("Su selección es..."))
+        
         size = input("Indique tamaño de la muestra que desee: ")
-        result = controller.sortVideos(catalog, int(size), alg)
+        result = controller.sortVideos(catalog, int(size), 4)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
                                           str(result[0]))
-        #print(result)
-
-    elif int(inputs[0]) == 3:
         country = input("Ingrese el país: ")
         category = input("Ingrese la categoria: ")
         number = input("cantidad de videos por listar: ")
         
         compilation = controller.getVideosByCategoryAndCountry(catalog, str(category), str(country), int(number))
         GoodVideosByCategoryAndConuntry(compilation)
-
-    elif int(inputs[0]) == 4:
+    elif int(inputs[0]) == 2:
         country = input("Ingrese el país: ")
         mosttrend = controller.FindTrendVideoByCountry(catalog, country)
         FindTrendVideoByCountry(mosttrend)
 
-    elif int(input[0]) == 5:
+    elif int(inputs[0]) == 3:
         category = input("Ingrese la categoria: ")
         mosttrend = controller.TrendByCategory(catalog, category)
         TrendByCategory(mosttrend)
 
-    elif int(inputs[0]) == 6:
+    elif int(inputs[0]) == 4:
         mostliked = controller.MostLikedVideos(catalog)
         MostLikedVideos(mostliked)
 
