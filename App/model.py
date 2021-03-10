@@ -81,7 +81,7 @@ def addCategory(catalog, category):
 
 # Funciones para creacion de datos
 def newCategory(name, id):
-    category = {'id': id, 'name': name}
+    category = {'id': name, 'name': id}
     return category
 
 

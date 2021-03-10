@@ -73,6 +73,7 @@ def sortVideos(catalog, size, alg):
 
 
 def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
+    print(category_name, country)
     return model.getVideosByCategoryAndCountry(category_name, country, numvid)
 
 

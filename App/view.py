@@ -111,7 +111,8 @@ while True:
         loadData(catalog)
         print("Categorias cargadas: " + str(lt.size(catalog['category'])))
         print("Videos cargados: " + str(lt.size(catalog['videos'])))
-
+        #title, cannel_title, trending_date, country, views, likes, dislikes
+        print(catalog["category"])
     elif int(inputs[0]) == 2:
         print("Indique el tipo de algoritmo que desse utilizar")
         print("1 - shellshort")
@@ -129,7 +130,8 @@ while True:
         country = input("Ingrese el país: ")
         category = input("Ingrese la categoria: ")
         number = input("cantidad de videos por listar: ")
-        compilation = controller.getVideosByCategoryAndConuntry(catalog, str(category), str(country), int(number))
+        
+        compilation = controller.getVideosByCategoryAndCountry(catalog, str(category), str(country), int(number))
         GoodVideosByCategoryAndConuntry(compilation)
 
     elif int(inputs[0]) == 4:
