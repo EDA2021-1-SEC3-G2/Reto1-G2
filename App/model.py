@@ -126,20 +126,62 @@ def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
 
 
 def FindTrendVideoByCountry(catalog, country):
-    return 1
+    videos_list = catalog['videos']
+    sorted_list = merg.sort(videos_list, cmpVideosByCountry)
+    pos = FindStartPosition(sorted_list, country)
+    final_list = lt.subList(sorted_list, pos[0], pos[1])
+    sorted_final_list = merg.sort(final_list, cmpVideosByTitle)
+    
+    return result
 
 
+def FindStartPosition(catalog, country):
+    pos = -1
+    i = 0
+    while pos == -1 and pos != i:
+        if catalog[i]['country'] == country:
+            pos = i
+        i += 1
+    numpos = FindEndPosition(catalog, country, pos)
+    return (pos, numpos)
+
+
+def FindEndPosition(catalog, country, pos):
+    ver = True
+    i = pos
+    while ver:
+        if catalog[i]['country'] != country:
+            i -= 2
+            ver = False
+        i += 1
+    numpos = (i - pos) + 1
+    return numpos
+
+
+def getFinalListTrendVidByCount(catalog, cant):
+    final_list = {}
+    final_list['title'] = catalog['title']
+    final_list['channel_title'] = catalog['channel_title']
+    final_list['country'] = catalog['country']
+    final_list['días'] = cant
+    return final_list
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 
 def comparecategories(name, category):
-    return (name == category['name'])       
-    
+    return (name == category['name'])
 
 
 def cmpVideosByViews(video1, video2):
     return(float(video1['views']) > float(video2['views']))
 
+
+def cmpVideosByCountry(country1, country2):
+    return(country1 > country2)
+
+
+def cmpVideosByTitle(title1, title2):
+    return(title1 == title2)
 
 # Funciones de ordenamiento
 

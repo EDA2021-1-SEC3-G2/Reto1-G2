@@ -98,16 +98,15 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        catalog=initLinkedCatalog()
+        catalog = initLinkedCatalog()
         loadData(catalog)
         print("Categorias cargadas: " + str(lt.size(catalog['category'])))
         print("Videos cargados: " + str(lt.size(catalog['videos'])))
-        #title, cannel_title, trending_date, country, views, likes, dislikes
-        print("CATEGORIAS",end="\n\n")
-        print(catalog["category"],end="\n\n")
-        print("PRIMER VIDEO:",end="\n\n")
-        print(catalog["videos"]["first"]["info"]["title"]+catalog["videos"]["first"]["info"]["channel_title"]+catalog["videos"]["first"]["info"]["trending_date"]+
-        catalog["videos"]["first"]["info"]["country"]+catalog["videos"]["first"]["info"]["views"]+catalog["videos"]["first"]["info"]["likes"]+catalog["videos"]["first"]["info"]["dislikes"])
+        # title, cannel_title, trending_date, country, views, likes, dislikes
+        print("CATEGORIAS", end="\n\n")
+        print(catalog["category"], end="\n\n")
+        print("PRIMER VIDEO:", end="\n\n")
+        print(catalog["videos"]["first"]["info"]["title"]+catalog["videos"]["first"]["info"]["channel_title"]+catalog["videos"]["first"]["info"]["trending_date"]+catalog["videos"]["first"]["info"]["country"]+catalog["videos"]["first"]["info"]["views"]+catalog["videos"]["first"]["info"]["likes"]+catalog["videos"]["first"]["info"]["dislikes"])
     elif int(inputs[0]) == 2:
         print("Indique el tipo de algoritmo que desse utilizar")
         print("1 - shellshort")
