@@ -36,9 +36,6 @@ def initLinkedCatalog():
     return model.newLinkedCatalog()
 
 
-def initArrayCatalog():
-    return model.newArrayCatalog()
-
 # Funciones para la carga de datos
 
 

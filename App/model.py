@@ -54,15 +54,6 @@ def newLinkedCatalog():
     return catalog
 
 
-def newArrayCatalog():
-    catalog = {'videos': None,
-               'category': None}
-    catalog['videos'] = lt.newList()
-    catalog['category'] = lt.newList('ARRAY_LIST',
-                                     cmpfunction=comparecategories)
-    return catalog
-
-
 def list_user(cantidad):
     return 4
 
@@ -128,43 +119,63 @@ def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
 def FindTrendVideoByCountry(catalog, country):
     videos_list = catalog['videos']
     sorted_list = merg.sort(videos_list, cmpVideosByCountry)
-    pos = FindStartPosition(sorted_list, country)
-    final_list = lt.subList(sorted_list, pos[0], pos[1])
-    sorted_final_list = merg.sort(final_list, cmpVideosByTitle)
-    
+    pos = FindPositionTrendingCountry(sorted_list, country)
+    sub_size = FindPositionEndTrendingCountry(sorted_list, country, pos)
+    final_list = lt.subList(sorted_list, pos, sub_size)
+    final_list = final_list.copy()
+    sorted_final_list = merg.sort(final_list, cmpVideosByVideoID)
+    result = FindTrendiestVideo(sorted_final_list)
     return result
 
 
-def FindStartPosition(catalog, country):
-    pos = -1
-    i = 0
-    while pos == -1 and pos != i:
-        if catalog[i]['country'] == country:
-            pos = i
+def FindTrendiestVideo(catalog):
+    i = 1
+    cont = 0
+    recount = 0
+    temppos = ''
+    videoid = lt.getElement(catalog, 1)['video_id']
+    while i <= lt.size(catalog):
+        if lt.getElement(catalog, i)['video_id'] == videoid:
+            cont += 1
+        else:
+            if cont > recount:
+                recount = cont
+                temppos = i - 1
+                videoid = lt.getElement(catalog, i)
+            else:
+                videoid = lt.getElement(catalog, i)
+                cont = 1
         i += 1
-    numpos = FindEndPosition(catalog, country, pos)
-    return (pos, numpos)
+    result = lt.getElement(catalog, temppos)
+    final_result = {'title': result['title'], 'channel_title': result['channel_title'], 'country': result['country'], 'días': recount}
+    return final_result
 
 
-def FindEndPosition(catalog, country, pos):
+def FindPositionEndTrendingCountry(catalog, country, pos):
     ver = True
+    endpos = 0
     i = pos
     while ver:
-        if catalog[i]['country'] != country:
-            i -= 2
+        if lt.getElement(catalog, i)['country'].lower() != country.lower():
+            endpos = i
             ver = False
         i += 1
-    numpos = (i - pos) + 1
-    return numpos
+    sub_size = endpos - pos
+    return sub_size
 
 
-def getFinalListTrendVidByCount(catalog, cant):
-    final_list = {}
-    final_list['title'] = catalog['title']
-    final_list['channel_title'] = catalog['channel_title']
-    final_list['country'] = catalog['country']
-    final_list['días'] = cant
-    return final_list
+def FindPositionTrendingCountry(catalog, country):
+    ver = True
+    i = 1
+    pos = 0
+    while ver:
+        if lt.getElement(catalog, i)['country'].lower() == country.lower():
+            ver = False
+            pos = i
+        i += 1
+    return pos
+
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 
@@ -176,12 +187,12 @@ def cmpVideosByViews(video1, video2):
     return(float(video1['views']) > float(video2['views']))
 
 
-def cmpVideosByCountry(country1, country2):
-    return(country1 > country2)
+def cmpVideosByCountry(video1, video2):
+    return(video1['country'].lower() < video2['country'].lower())
 
 
-def cmpVideosByTitle(title1, title2):
-    return(title1 == title2)
+def cmpVideosByVideoID(video1, video2):
+    return(video1['video_id'] == video2['video_id'])
 
 # Funciones de ordenamiento
 
