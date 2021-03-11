@@ -132,7 +132,7 @@ def FindTrendiestVideo(catalog):
     i = 1
     cont = 0
     recount = 0
-    temppos = ''
+    temppos = 0
     videoid = lt.getElement(catalog, 1)['video_id']
     while i <= lt.size(catalog):
         if lt.getElement(catalog, i)['video_id'] == videoid:
@@ -142,6 +142,7 @@ def FindTrendiestVideo(catalog):
                 recount = cont
                 temppos = i - 1
                 videoid = lt.getElement(catalog, i)
+                cont = 1
             else:
                 videoid = lt.getElement(catalog, i)
                 cont = 1
