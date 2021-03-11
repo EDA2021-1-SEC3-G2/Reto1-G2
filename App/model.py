@@ -116,7 +116,7 @@ def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
             lt.addLast(templist, videos[cont])
             temp -= 0
         cont += 1
-    #mostviewedbycountandcat = getFinalList(templist)
+    mostviewedbycountandcat = getFinalList(templist)
     return mostviewedbycountandcat
 
 
@@ -179,6 +179,25 @@ def FindPositionTrendingCountry(catalog, country):
             pos = i
         i += 1
     return pos
+
+
+def MostLikedVideos(catalog, tag, num, country):
+    videos_list = catalog['videos']
+    sorted_list = merg.sort(videos_list, cmpVideosByViews)
+    temp_list = SearchByCountryWithNumber(sorted_list, country, num)
+    
+
+
+def SearchByCountryWithNumber(catalog, country, num):
+    temp_list = lt.newList()
+    i = num
+    c = 1
+    while i > 0:
+        if lt.getElement(sorted_list, c)['country'].lower() == country.lower():
+            lt.addLast(temp_list, lt.getElement(sorted_list, c))
+            i -= 1
+        c += 1
+    return temp_list
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista

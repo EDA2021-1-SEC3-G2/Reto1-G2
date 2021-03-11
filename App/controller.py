@@ -78,3 +78,7 @@ def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
 
 def FindTrendVideoByCountry(catalog, country):
     return model.FindTrendVideoByCountry(catalog, country)
+
+
+def MostLikedVideos(catalog, tag, num, country):
+    return model.MostLikedVideos(catalog, tag, num, country)

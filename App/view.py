@@ -41,7 +41,7 @@ def printMenu():
     print("2- Buenos videos por categoría y país")
     print("3- Encontrar video tendencia por país")
     print("4- Buscar video tendencia por categoria")
-    print("5- Video con más likes")
+    print("5- Requerimiento 4")
     print("0- Salir")
 
 
@@ -71,7 +71,6 @@ def GoodVideosByCategoryAndConuntry(compilation):
             print("Día que fue trending: " + compilation["trending_date"] + "Nombre del video: " + compilation["title"]+"Canal: " + compilation["channel_title"])
     else:
         print("No se encontraron videos")
-
 
 
 def TrendByCategory(mosttrend):
@@ -104,7 +103,6 @@ while True:
         print(catalog['category'], end="\n\n")
         print("PRIMER VIDEO:", end="\n\n")
         print(catalog["videos"]["first"]["info"]["title"]+catalog["videos"]["first"]["info"]["channel_title"]+catalog["videos"]["first"]["info"]["trending_date"]+catalog["videos"]["first"]["info"]["country"]+catalog["videos"]["first"]["info"]["views"]+catalog["videos"]["first"]["info"]["likes"]+catalog["videos"]["first"]["info"]["dislikes"])
-        #print(catalog["videos"])
         print(lt.getElement(catalog['videos'], 1), end="\n\n")
     elif int(inputs[0]) == 2:
         size = input("Indique tamaño de la muestra que desee: ")
@@ -128,8 +126,11 @@ while True:
         TrendByCategory(mosttrend)
 
     elif int(inputs[0]) == 5:
-        mostliked = controller.MostLikedVideos(catalog)
-        MostLikedVideos(mostliked)
+        tag = input("Ingrese el tag que desee buscar: ")
+        num = int(input("Ingrese el número de videos que desee ver: "))
+        country = input("Ingrese el país por el que desee buscar la tag: ")
+        mostliked = controller.MostLikedVideos(catalog, tag, num, country)
+        print(mostliked)
 
     else:
         sys.exit(0)
