@@ -131,6 +131,13 @@ def FindTrendVideoByCountry(catalog, country):
     result = FindTrendiestVideo(sorted_final_list)
     return result
 
+def FindTrendVideoByCategory(catalog,category):
+    paramater=getCategory_ID(catalog,category)
+    for element in catalog["videos"]:
+        if element["category_ID"] == catalog["videos"]["category_ID"] and element["category_ID"] != paramater:
+            lt.deleteElement(element)
+    most=FindTrendiestVideo(catalog)
+return most
 
 def FindTrendiestVideo(catalog):
     i = 1

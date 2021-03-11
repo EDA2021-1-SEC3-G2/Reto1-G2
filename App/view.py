@@ -105,13 +105,13 @@ while True:
         print("PRIMER VIDEO:", end="\n\n")
         print(catalog["videos"]["first"]["info"]["title"]+catalog["videos"]["first"]["info"]["channel_title"]+catalog["videos"]["first"]["info"]["trending_date"]+catalog["videos"]["first"]["info"]["country"]+catalog["videos"]["first"]["info"]["views"]+catalog["videos"]["first"]["info"]["likes"]+catalog["videos"]["first"]["info"]["dislikes"])
         #print(catalog["videos"])
-        print(lt.getElement(catalog['videos'], 1), end="\n\n")
+        print(catalog['videos'])
     elif int(inputs[0]) == 2:
         size = input("Indique tamaño de la muestra que desee: ")
         result = controller.sortVideos(catalog, int(size), 4)
         print("Para la muestra de", size, " elementos, el tiempo (mseg) es: ",
                                           str(result[0]))
-        print(result)
+        #print(result)
         country = input("Ingrese el país: ")
         category = input("Ingrese la categoria: ")
         number = input("cantidad de videos por listar: ")
