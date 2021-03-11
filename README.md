@@ -1,6 +1,6 @@
-Julio Mario Rodriguez | 202020236 | jm.rodriguezc1@unaindes.edu.co
+Req-2: Julio Mario Rodriguez | 202020236 | jm.rodriguezc1@unaindes.edu.co
 
-Edison Julian Leon |  202021373 | e.leonc@uniandes.edu.co
+Req-3: Edison Julian Leon |  202021373 | e.leonc@uniandes.edu.co
 
 #ISIS1225 - Librerias de soporte
 
