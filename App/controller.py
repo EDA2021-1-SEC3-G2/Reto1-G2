@@ -20,10 +20,12 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import sys
 import config as cf
 import model
 import csv
-
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10)
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -74,7 +76,7 @@ def sortVideos(catalog, size, alg):
 
 def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
     print(category_name, country)
-    return model.getVideosByCategoryAndCountry(category_name, country, numvid)
+    return model.getVideosByCategoryAndCountry(catalog,category_name, country, numvid)
 
 
 def FindTrendVideoByCountry(catalog, country):

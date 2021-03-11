@@ -24,7 +24,7 @@
  * Dario Correal - Version inicial
  """
 
-
+import sys
 import config as cf
 import time
 from DISClib.ADT import list as lt
@@ -34,6 +34,9 @@ from DISClib.Algorithms.Sorting import selectionsort as sel
 from DISClib.Algorithms.Sorting import mergesort as merg
 from DISClib.Algorithms.Sorting import quicksort as quick
 assert cf
+
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10) 
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos
@@ -90,8 +93,9 @@ def newCategory(name, id):
 
 def getCategory_ID(catalog, category_name):
     categories = catalog['category']
-    pos = lt.isPresent(categories['name'], category_name)
-    if pos != 0:
+    for element in categories["elements"]:
+        if lt.isPresent(element["name"], category_name) != 0:
+            pos = lt.isPresent(element["name"], category_name)
         return categories['id'][pos]
 
 
@@ -121,7 +125,7 @@ def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
             lt.addLast(templist, videos[cont])
             temp -= 0
         cont += 1
-    mostviewedbycountandcat = getFinalList(templist)
+    #mostviewedbycountandcat = getFinalList(templist)
     return mostviewedbycountandcat
 
 
