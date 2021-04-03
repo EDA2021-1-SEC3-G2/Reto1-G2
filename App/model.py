@@ -47,11 +47,11 @@ los mismos.
 # Construccion de modelos
 
 
-def newLinkedCatalog():
+def newArrayCatalog():
     catalog = {'videos': None,
                'category': None}
-    catalog['videos'] = lt.newList()
-    catalog['category'] = lt.newList('LINKED_LIST',
+    catalog['videos'] = lt.newList("ARRAY_LIST")
+    catalog['category'] = lt.newList('ARRAY_LIST',
                                      cmpfunction=comparecategories)
 
     return catalog
@@ -84,40 +84,22 @@ def newCategory(name, id):
 
 def getCategory_ID(catalog, category_name):
     categories = catalog['category']
-    for element in categories["elements"]:
-        if lt.isPresent(element["name"], category_name) != 0:
-            pos = lt.isPresent(element["name"], category_name)
-        return categories['id'][pos]
-
-
-def getFinalList(lis):
-    final = {'trending_date': "", 'title': "",
-             'channel_title': "", 'publish_time': "",
-             'views': "", 'likes': "", 'dislikes': ""}
-    final['trending_date'] = lis['trending date']
-    final['title'] = lis['title']
-    final['channel_title'] = lis['channel_title']
-    final['publish_time'] = lis['publish_time']
-    final['views'] = lis['views']
-    final['likes'] = lis['likes']
-    final['dislikes'] = lis['dislikes']
-    return final
+    for element in range(1, lt.size(categories)+1):
+        element_1 = lt.getElement(categories, element)
+        if ((element_1["name"]).strip(" ")).lower() == (category_name.strip(" ")).lower():
+            return element_1["id"]
 
 
 def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
     videos = catalog['videos']
-    mostviewedbycountandcat = lt.newList()
     templist = lt.newList()
     cat_id = getCategory_ID(catalog, category_name)
-    cont = 0
-    temp = numvid
-    while cont < len(videos) and temp > 0:
-        if videos[cont]['country'].lower() == country.lower() and videos[cont]['category_id'] == cat_id:
-            lt.addLast(templist, videos[cont])
-            temp -= 0
-        cont += 1
-    #mostviewedbycountandcat = getFinalList(templist)
-    return mostviewedbycountandcat
+    for video in range(1, lt.size(videos)+1):
+        element = lt.getElement(videos, video)
+        if element["country"].lower() == country.lower() and cat_id == element["category_id"]:
+            lt.addLast(templist, element)
+    mostviewedbycountandcat_1 = sortVideos(templist, 5, 4)
+    return mostviewedbycountandcat_1
 
 
 def FindTrendVideoByCountry(catalog, country):
@@ -137,7 +119,7 @@ def FindTrendVideoByCategory(catalog,category):
         if element["category_ID"] == catalog["videos"]["category_ID"] and element["category_ID"] != paramater:
             lt.deleteElement(element)
     most=FindTrendiestVideo(catalog)
-return most
+    return most
 
 def FindTrendiestVideo(catalog):
     i = 1
@@ -209,20 +191,20 @@ def cmpVideosByVideoID(video1, video2):
 # Funciones de ordenamiento
 
 
-def sortVideos(catalog, size, alg):
-    sub_list = lt.subList(catalog['videos'], 1, size)
-    sub_list = sub_list.copy()
+def sortVideos(list_2, size, alg):
+    # sub_list = lt.subList(list_2, 1, size)
+    # s ub_list = sub_list.copy()
     start_time = time.process_time()
     if alg == 1:
-        sorted_list = sa.sort(sub_list, cmpVideosByViews)
+        sorted_list = sa.sort(list_2, cmpVideosByViews)
     elif alg == 2:
-        sorted_list = sel.sort(sub_list, cmpVideosByViews)
+        sorted_list = sel.sort(list_2, cmpVideosByViews)
     elif alg == 3:
-        sorted_list = ins.sort(sub_list, cmpVideosByViews)
+        sorted_list = ins.sort(list_2, cmpVideosByViews)
     elif alg == 4:
-        sorted_list = merg.sort(sub_list, cmpVideosByViews)
+        sorted_list = merg.sort(list_2, cmpVideosByViews)
     else:
-        sorted_list = quick.sort(sub_list, cmpVideosByViews)
+        sorted_list = quick.sort(list_2, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
-    return elapsed_time_mseg, sorted_list
+    return sorted_list

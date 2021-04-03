@@ -34,8 +34,8 @@ El controlador se encarga de mediar entre la vista y el modelo.
 # Inicialización del Catálogo de libros
 
 
-def initLinkedCatalog():
-    return model.newLinkedCatalog()
+def initArrayCatalog():
+    return model.newArrayCatalog()
 
 
 # Funciones para la carga de datos
@@ -47,7 +47,7 @@ def loadData(catalog):
 
 
 def loadVideos(catalog):
-    videosfile = cf.data_dir + 'videos-small.csv'
+    videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
@@ -73,7 +73,7 @@ def sortVideos(catalog, size, alg):
 
 def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
     print(category_name, country)
-    return model.getVideosByCategoryAndCountry(catalog,category_name, country, numvid)
+    return model.getVideosByCategoryAndCountry(catalog, category_name, country, numvid)
 
 
 def FindTrendVideoByCountry(catalog, country):
