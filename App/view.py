@@ -72,10 +72,19 @@ def GoodVideosByCategoryAndConuntry(compilation):
         print("No se encontraron videos")
 
 
+def TrendByCountry(info):
+    "utiliza la informacion de la tupla y la ordena para entregarla al usuario"
+    video = info[0]
+    days = info[1]
+    print(video["title"]+"   "+video["channel_title"]+"    "+video["country"]+"    "+str(days))
+
 
 def TrendByCategory(mosttrend):
     """video tendecia por categoría
     """
+    video = mosttrend[0]
+    days = mosttrend[1]
+    print(video["title"]+"   "+video["channel_title"]+"    "+video["country"]+"    "+str(days))
 
 
 def MostLikedVideos(mostliked):
@@ -112,11 +121,11 @@ while True:
     elif int(inputs[0]) == 3:
         country = input("Ingrese el país: ")
         mosttrend = controller.FindTrendVideoByCountry(catalog, country)
-        print(mosttrend)
-
+        TrendByCountry(mosttrend)
+        
     elif int(inputs[0]) == 4:
         category = input("Ingrese la categoria: ")
-        mosttrend = controller.TrendByCategory(catalog, category)
+        mosttrend = controller.FindTrendVideoByCategory(catalog, category)
         TrendByCategory(mosttrend)
 
     elif int(inputs[0]) == 5:

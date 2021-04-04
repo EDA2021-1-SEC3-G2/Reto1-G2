@@ -98,7 +98,7 @@ def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
         element = lt.getElement(videos, video)
         if element["country"].lower() == country.lower() and cat_id == element["category_id"]:
             lt.addLast(templist, element)
-    mostviewedbycountandcat_1 = sortVideos(templist, 5, 4)
+    mostviewedbycountandcat_1 = sortVideos(templist, 4)
     return mostviewedbycountandcat_1
 
 
@@ -117,9 +117,11 @@ def FindTrendVideoByCountry(catalog, country):
     for element in range(1, lt.size(sorted_final_list)+1):
         actual = lt.getElement(sorted_final_list, element)
         pos = element+1
-        if actual == lt.size(sorted_final_list) and actual["video_id"] == final_element["video_id"]:
+        if actual == lt.lastElement(sorted_final_list) :
+            if actual["video_id"] == final_element["video_id"]:
+                days += 1
             days += 1
-            return final_element
+            return final_element, days
         next_one = lt.getElement(sorted_final_list, pos)
         if actual["video_id"] == next_one["video_id"]:
             contador += 1
@@ -128,21 +130,52 @@ def FindTrendVideoByCountry(catalog, country):
                 days = contador
                 final_element = lt.getElement(sorted_final_list, element)
             contador = 0
-
-    print(final_element)
-    print(days)
-    return final_element
+    return final_element, days
 
 
-def FindTrendVideoByCategory(catalog, category):
+def FindTrendVideoByCategory(catalog, category_name):
+    videos_list = catalog['videos']
+    reduced_list = lt.newList("ARRAY_LIST")
+    category = getCategory_ID(catalog, category_name)
+    for element in range(1, lt.size(videos_list)+1):
+        thing = lt.getElement(videos_list, element)
+        if thing["category_id"] == category:
+            lt.addLast(reduced_list, thing)
+    print(lt.size(reduced_list))
+    sorted_final_list = merg.sort(reduced_list, cmpVideosByVideoID)
+    final_element = ""
+    days = 0
+    contador = 0
+    for element in range(1, lt.size(sorted_final_list)+1):
+        actual = lt.getElement(sorted_final_list, element)
+        pos = element+1
+        if actual == lt.lastElement(sorted_final_list) :
+            if actual["video_id"] == final_element["video_id"]:
+                days += 1
+            days += 1
+            
+            return final_element, days
+        next_one = lt.getElement(sorted_final_list, pos)
+        if actual["video_id"] == next_one["video_id"]:
+            contador += 1
+        else:
+            if contador >= days:
+                days = contador
+                final_element = lt.getElement(sorted_final_list, element)
+            contador = 0
+    
+    return final_element, days
+
+
+"""def FindTrendVideoByCategory(catalog, category):
     paramater = getCategory_ID(catalog, category)
     for element in catalog["videos"]:
         if element["category_ID"] == catalog["videos"]["category_ID"] and element["category_ID"] != paramater:
             lt.deleteElement(element)
     most = FindTrendiestVideo(catalog)
-    return most
+    return most"""
 
-
+# Estas funciones no las usé, deben tener similitud con lo que hice pero pues se me facilitó mas partir de 0. Si las quieres implementar igualemnte está bien.
 def FindTrendiestVideo(catalog):
     i = 1
     cont = 0
@@ -214,9 +247,7 @@ def cmpVideosByVideoID(video1, video2):
 # Funciones de ordenamiento
 
 
-def sortVideos(list_2, size, alg):
-    # sub_list = lt.subList(list_2, 1, size)
-    # s ub_list = sub_list.copy()
+def sortVideos(list_2, alg):
     start_time = time.process_time()
     if alg == 1:
         sorted_list = sa.sort(list_2, cmpVideosByViews)
