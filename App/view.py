@@ -65,11 +65,10 @@ def loadData(catalog):
 def GoodVideosByCategoryAndConuntry(compilation):
     """
     busca videos por categoria y país"""
-    size = lt.size(compilation)
-    if size:
-        for video in lt.iterator:
-            print("Día que fue trending: " + compilation["trending_date"] + "Nombre del video: " + compilation["title"]+"Canal: " + compilation["channel_title"])
-    else:
+    for element in range(1, number+1):
+        video = lt.getElement(compilation, element)
+        print(video["trending_date"]+"     "+video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"])
+    if lt.isEmpty(compilation):
         print("No se encontraron videos")
 
 
@@ -109,10 +108,7 @@ while True:
         category = input("Ingrese la categoria: ")
         number = int(input("cantidad de videos por listar: "))
         compilation = controller.getVideosByCategoryAndCountry(catalog, str(category), str(country), int(number))
-        for element in range(1, number+1):
-            video = lt.getElement(compilation, element)
-            print(video["trending_date"]+"     "+video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"])
-        # GoodVideosByCategoryAndConuntry(compilation)
+        GoodVideosByCategoryAndConuntry(compilation)
     elif int(inputs[0]) == 3:
         country = input("Ingrese el país: ")
         mosttrend = controller.FindTrendVideoByCountry(catalog, country)

@@ -104,22 +104,44 @@ def getVideosByCategoryAndCountry(catalog, category_name, country,  numvid):
 
 def FindTrendVideoByCountry(catalog, country):
     videos_list = catalog['videos']
-    sorted_list = merg.sort(videos_list, cmpVideosByCountry)
-    pos = FindPositionTrendingCountry(sorted_list, country)
-    sub_size = FindPositionEndTrendingCountry(sorted_list, country, pos)
-    final_list = lt.subList(sorted_list, pos, sub_size)
-    final_list = final_list.copy()
-    sorted_final_list = merg.sort(final_list, cmpVideosByVideoID)
-    result = FindTrendiestVideo(sorted_final_list)
-    return result
+    reduced_list = lt.newList("ARRAY_LIST")
+    for element in range(1, lt.size(videos_list)+1):
+        thing = lt.getElement(videos_list, element)
+        if ((thing["country"]).strip()).lower() == country.strip().lower():
+            lt.addLast(reduced_list, thing)
+    print(lt.size(reduced_list))
+    sorted_final_list = merg.sort(reduced_list, cmpVideosByVideoID)
+    final_element = ""
+    days = 0
+    contador = 0
+    for element in range(1, lt.size(sorted_final_list)+1):
+        actual = lt.getElement(sorted_final_list, element)
+        pos = element+1
+        if actual == lt.size(sorted_final_list) and actual["video_id"] == final_element["video_id"]:
+            days += 1
+            return final_element
+        next_one = lt.getElement(sorted_final_list, pos)
+        if actual["video_id"] == next_one["video_id"]:
+            contador += 1
+        else:
+            if contador >= days:
+                days = contador
+                final_element = lt.getElement(sorted_final_list, element)
+            contador = 0
 
-def FindTrendVideoByCategory(catalog,category):
-    paramater=getCategory_ID(catalog,category)
+    print(final_element)
+    print(days)
+    return final_element
+
+
+def FindTrendVideoByCategory(catalog, category):
+    paramater = getCategory_ID(catalog, category)
     for element in catalog["videos"]:
         if element["category_ID"] == catalog["videos"]["category_ID"] and element["category_ID"] != paramater:
             lt.deleteElement(element)
-    most=FindTrendiestVideo(catalog)
+    most = FindTrendiestVideo(catalog)
     return most
+
 
 def FindTrendiestVideo(catalog):
     i = 1
@@ -149,6 +171,7 @@ def FindPositionEndTrendingCountry(catalog, country, pos):
     ver = True
     endpos = 0
     i = pos
+    print(i)
     while ver:
         if lt.getElement(catalog, i)['country'].lower() != country.lower():
             endpos = i
@@ -186,7 +209,7 @@ def cmpVideosByCountry(video1, video2):
 
 
 def cmpVideosByVideoID(video1, video2):
-    return(video1['video_id'] == video2['video_id'])
+    return(video1['video_id'] > video2['video_id'])
 
 # Funciones de ordenamiento
 
