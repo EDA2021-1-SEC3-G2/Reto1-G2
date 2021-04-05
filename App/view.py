@@ -129,7 +129,10 @@ while True:
         TrendByCategory(mosttrend)
 
     elif int(inputs[0]) == 5:
-        mostliked = controller.MostLikedVideos(catalog)
+        tag = input("Ingrese el tag de interés: ")
+        country = input("ingrese el país: ")
+        elements = input("Ingrese el numero de elementos a listar: ")
+        mostliked = controller.FindMostLikedByTag(catalog, tag, country, elements)
         MostLikedVideos(mostliked)
 
     else:

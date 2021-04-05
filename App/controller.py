@@ -82,3 +82,7 @@ def FindTrendVideoByCountry(catalog, country):
 
 def FindTrendVideoByCategory(catalog, category):
     return model.FindTrendVideoByCategory(catalog, category)
+
+
+def FindMostLikedByTag(catalog, tag, country, elements):
+    return model.FindMostLikedByTag(catalog, tag, country, elements)

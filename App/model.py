@@ -226,6 +226,49 @@ def FindPositionTrendingCountry(catalog, country):
     return pos
 
 
+def FindMostLikedByTag(catalog, tag, country, elements):
+    videos = catalog["videos"]
+    country_list = lt.newList("ARRAY_LIST")
+    for element in range(1, lt.size(videos)+1):
+        video = lt.getElement(videos, element)
+        if video["country"] == country:
+            lt.addLast(country_list, video)
+    print(lt.size(country_list))
+    tag_list = lt.newList("ARRAY_LIST")
+    for element in range(1, lt.size(country_list)+1):
+        video = lt.getElement(country_list, element)
+        yes = video["tags"].split("|")
+        for sub_element in yes:
+            if sub_element.find(tag) != -1:
+                lt.addLast(tag_list, video)
+    print(lt.size(tag_list))
+    final_list = merg.sort(tag_list, cmpVideosByLikes)
+    #for element in range(1, 10):
+        #video = lt.getElement(final_list, element)
+        #print(video["trending_date"]+"     "+video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"])
+    print("")
+    print("")
+    print("")
+    user_list = lt.newList("ARRAY_LIST", cmpVideosByVideoID)
+    lt.addFirst(user_list, lt.firstElement(final_list))
+    iterator = 1
+    while lt.size(user_list) < int(elements)+1:
+        video = lt.getElement(final_list, iterator)
+        print(video["trending_date"]+"     "+video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"])
+        if lt.isPresent(user_list, video) != 0:
+            iterator += 1
+        else:
+            lt.addLast(user_list, video)
+    print("")
+    print("")
+    for element in range(1, 5):
+        video = lt.getElement(user_list, element)
+        print(video["trending_date"]+"     "+video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"])
+
+        
+        
+
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 
@@ -243,6 +286,9 @@ def cmpVideosByCountry(video1, video2):
 
 def cmpVideosByVideoID(video1, video2):
     return(video1['video_id'] > video2['video_id'])
+
+def cmpVideosByLikes(video1, video2):
+    return (float(video1["likes"]) > float(video2["likes"])) 
 
 # Funciones de ordenamiento
 
