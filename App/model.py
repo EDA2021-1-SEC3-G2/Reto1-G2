@@ -226,7 +226,7 @@ def FindPositionTrendingCountry(catalog, country):
     return pos
 
 
-def FindMostLikedByTag(catalog, tag, country, elements):
+def FindMostLikedByTag(catalog, tag, country, elements):    
     videos = catalog["videos"]
     country_list = lt.newList("ARRAY_LIST")
     for element in range(1, lt.size(videos)+1):
@@ -243,34 +243,31 @@ def FindMostLikedByTag(catalog, tag, country, elements):
                 lt.addLast(tag_list, video)
     print(lt.size(tag_list))
     final_list = merg.sort(tag_list, cmpVideosByLikes)
-    #for element in range(1, 10):
-        #video = lt.getElement(final_list, element)
-        #print(video["trending_date"]+"     "+video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"])
-    print("")
-    print("")
-    print("")
-    user_list = lt.newList("ARRAY_LIST", cmpVideosByVideoID)
+    user_list = lt.newList("ARRAY_LIST")
     lt.addFirst(user_list, lt.firstElement(final_list))
     iterator = 1
-    while lt.size(user_list) < int(elements)+1:
+    primero = lt.firstElement(final_list)["title"]
+    help_list = [primero]                                                                   # esto se hizo por que la operacion de lt.isPresent no funcionó.
+    while lt.size(user_list) < int(elements)+1 and iterator != lt.size(final_list):                  # la forma de hacerlo por la otra forma y usando TADlist lo adjunto al final de esta funcion.
         video = lt.getElement(final_list, iterator)
-        print(video["trending_date"]+"     "+video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"])
-        if lt.isPresent(user_list, video) != 0:
-            iterator += 1
-        else:
+        if video["title"] not in help_list:
+            help_list.append(video["title"])
             lt.addLast(user_list, video)
-    print("")
-    print("")
-    for element in range(1, 5):
-        video = lt.getElement(user_list, element)
-        print(video["trending_date"]+"     "+video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"])
-
-        
+        iterator += 1
+    return user_list
+    
         
 
+
+"""while lt.size(user_list)<int(elements)+1 and iterator != lt.size(final_list):
+    video = lt.getElement(final_list, iterator)
+    if lt.isPresent(user_list, video) != 0:
+        iterator += 1
+    else:
+        lt.addLast(user_list)
+        iterator += 1"""
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-
 
 def comparecategories(name, category):
     return (name == category['name'])
@@ -287,8 +284,10 @@ def cmpVideosByCountry(video1, video2):
 def cmpVideosByVideoID(video1, video2):
     return(video1['video_id'] > video2['video_id'])
 
+
 def cmpVideosByLikes(video1, video2):
     return (float(video1["likes"]) > float(video2["likes"])) 
+
 
 # Funciones de ordenamiento
 

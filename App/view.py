@@ -91,6 +91,9 @@ def MostLikedVideos(mostliked):
     """
     videos con mas likes
     """
+    for element in range(1, lt.size(mostliked)+1):
+        video = lt.getElement(mostliked, element)
+        print(video["title"]+"   "+video["channel_title"]+"   "+video["publish_time"]+"    "+video["views"]+"   "+video["likes"]+"    "+video["dislikes"]+"    "+video["tags"])
 
 
 catalog = {}
