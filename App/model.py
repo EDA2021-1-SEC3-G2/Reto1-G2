@@ -243,29 +243,32 @@ def FindMostLikedByTag(catalog, tag, country, elements):
                 lt.addLast(tag_list, video)
     print(lt.size(tag_list))
     final_list = merg.sort(tag_list, cmpVideosByLikes)
-    user_list = lt.newList("ARRAY_LIST")
+    user_list = lt.newList("ARRAY_LIST", comparador_ascendente)
     lt.addFirst(user_list, lt.firstElement(final_list))
     iterator = 1
-    primero = lt.firstElement(final_list)["title"]
-    help_list = [primero]                                                                   # esto se hizo por que la operacion de lt.isPresent no funcionó.
-    while lt.size(user_list) < int(elements)+1 and iterator != lt.size(final_list):                  # la forma de hacerlo por la otra forma y usando TADlist lo adjunto al final de esta funcion.
+    while lt.size(user_list) < int(elements)+1 and iterator != lt.size(final_list):
         video = lt.getElement(final_list, iterator)
-        if video["title"] not in help_list:
-            help_list.append(video["title"])
+        if lt.isPresent(user_list, video) == 0:
             lt.addLast(user_list, video)
-        iterator += 1
+            iterator += 1
+        else:
+            iterator += 1
+    
+    
+    
+    
+    
+    
+    
+    #help_list = [primero]                                                                   # esto se hizo por que la operacion de lt.isPresent no funcionó.
+    #while lt.size(user_list) < int(elements)+1 and iterator != lt.size(final_list):                  # la forma de hacerlo por la otra forma y usando TADlist lo adjunto al final de esta funcion.
+        #video = lt.getElement(final_list, iterator)
+        #if video["title"] not in help_list:
+            #help_list.append(video["title"])
+            #lt.addLast(user_list, video)
+        #iterator += 1
     return user_list
     
-        
-
-
-"""while lt.size(user_list)<int(elements)+1 and iterator != lt.size(final_list):
-    video = lt.getElement(final_list, iterator)
-    if lt.isPresent(user_list, video) != 0:
-        iterator += 1
-    else:
-        lt.addLast(user_list)
-        iterator += 1"""
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -288,6 +291,11 @@ def cmpVideosByVideoID(video1, video2):
 def cmpVideosByLikes(video1, video2):
     return (float(video1["likes"]) > float(video2["likes"])) 
 
+
+def comparador_ascendente(pos1, pos2):
+    if pos1["video_id"] != pos2["video_id"]:
+        return True
+    return False
 
 # Funciones de ordenamiento
 
